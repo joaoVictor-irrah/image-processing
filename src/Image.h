@@ -11,6 +11,7 @@ struct Image {
     int w, h;
     int channels;
     size_t size;
+    char filename[256]{};
 
     explicit Image(const char* filename);
     Image(int w, int h, int channels);
@@ -21,4 +22,7 @@ struct Image {
     bool write(const char* filename) const;
 
     static ImageType getFileType(const char* filename);
+
+    void grayscale_avg();
+    void grayscale_lum();
 };
