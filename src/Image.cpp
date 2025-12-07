@@ -154,3 +154,30 @@ void Image::grayscale_lum() {
     
     (void)write(output_filename);
 }
+void Image::colorMask(float r, float g, float b) {
+    if (channels < 3) {
+        printf("\x1b[31m[ERROR] Color mask requires at least 3 channels, but this image has %d channels\x1b[0m\n", channels);
+    }
+    else {
+        for (int i = 0; i < size; i += channels) {
+            data[i] *= r;
+            data[i+1] *= g;
+            data[i+2] *= b;
+        }
+
+        // Auto-generate output filename with color-mask suffix
+        const char* ext = strrchr(filename, '.');
+        char output_filename[256];
+
+        if (ext != nullptr) {
+            // Build filename with color-mask before extension
+            size_t base_len = ext - filename;
+            snprintf(output_filename, sizeof(output_filename), "%.*s-color-mask%s", (int)base_len, filename, ext);
+        } else {
+            // No extension found, just append color-mask
+            snprintf(output_filename, sizeof(output_filename), "%s-color-mask", filename);
+        }
+
+        (void)write(output_filename);
+    }
+}

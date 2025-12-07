@@ -31,10 +31,16 @@ int main() {
 
     // -------- GRAYSCALE TESTS ----------
 
+    // const Image test("test2.jpg");
+    // Image gray_img = test;
+    // gray_img.grayscale_avg();
+    // gray_img.grayscale_lum();
+
+    // -------- COLOR MASK TESTS ----------
+
     const Image test("test2.jpg");
-    Image gray_img = test;
-    gray_img.grayscale_avg();
-    gray_img.grayscale_lum();
+    Image masked = test;
+    masked.colorMask(1, 1.60, 1.70);
 
     return 0;
 }
